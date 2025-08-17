@@ -121,7 +121,7 @@
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/nord-light.yaml";
-    image = ./wallpaper_dark.jpg;
+    image = ./bladerunner.png;
     #targets = {
       #gtk.enable = true;
       #qt.enable = true;
