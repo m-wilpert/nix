@@ -50,6 +50,17 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Experimental = true;
+      };
+    };
+  };
+  services.blueman.enable = true;
+
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
 
@@ -100,7 +111,7 @@
   #  };
   #};
 
-  programs.firefox.enable = true;
+  #programs.firefox.enable = true;
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -108,15 +119,17 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     git
     wget
-    neovim
     kitty
-    waybar
-    mako
-    libnotify
-    hyprpaper
-    rofi-wayland
-    kdePackages.dolphin
+    networkmanagerapplet
+    hypridle
+    #mako
+    #libnotify
+    #hyprpaper
+    #rofi-wayland
+    #kdePackages.dolphin
   ];
+
+  #programs.waybar.enable = true;
 
   stylix = {
     enable = true;
