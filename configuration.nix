@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ./vm/hardware-configuration.nix
       inputs.home-manager.nixosModules.home-manager
     ];
 
