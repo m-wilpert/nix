@@ -87,10 +87,10 @@
     spotifyd
     obsidian
     gimp
-    zathura 
-    #evince
-    imv 
-    #loupe
+    #zathura 
+    evince
+    #imv 
+    loupe
     mullvad-vpn
     qbittorrent
     signal-desktop
