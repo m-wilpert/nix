@@ -61,8 +61,14 @@
   };
   services.blueman.enable = true;
 
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  #};
+  #services.displayManger = {
+    autoLogin.enable = true;
+    autoLogin.user = "mika";
+  };
 
   programs.hyprland = {
     enable = true;
@@ -122,6 +128,7 @@
     wget
     kitty
     networkmanagerapplet
+    hyprlock
     hypridle
     #mako
     #libnotify
@@ -162,6 +169,13 @@
 
 
   };
+
+  systemd.user.services.hypridle = {
+    description = "Hypridle service";
+    serviceConfig.ExecStart = "${pkgs.hypridle}/bin/hypridle";
+    wantedBy = [ "default.target" ];
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

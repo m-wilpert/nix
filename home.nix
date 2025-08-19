@@ -10,6 +10,28 @@
   
   programs.kitty.enable = true;
 
+  #programs.hyprlock.enable = true;
+
+  #programs.hypridle = {
+  #  enable = true;
+  #  settings = {
+  #    general = {
+  #      after_sleep_cmd = "hyprlock";
+  #      ignore_dbus_inhibit = false;
+  #    };
+  #    listener = [
+  #      {
+  #        timeout = 180;
+  #        on-timeout = "hyprlock";
+  #      }
+  #      {
+  #        timeout = 300;
+  #        on-timeout = "systemctl suspend";
+  #      }
+  #    ];
+  #  };
+  #};
+
   programs.waybar.enable = true;
   
   stylix.targets.waybar.addCss = true;
@@ -79,6 +101,8 @@
     #rofi-wayland
     kdePackages.dolphin
     hyprpaper
+    #hypridle
+    #hyprlock
     libnotify
     mako
     btop
@@ -94,7 +118,7 @@
     mullvad-vpn
     qbittorrent
     signal-desktop
-    
+    vscode    
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
