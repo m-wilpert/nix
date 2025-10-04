@@ -104,7 +104,7 @@
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = true;  # see the note above
+  hardware.nvidia.open = false;  # see the note above
 
   # Configure keymap in X11
   services.xserver.xkb = {
