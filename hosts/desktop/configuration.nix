@@ -189,13 +189,20 @@
     alacritty-theme
     git
     neovim
-  ];
+    bottles
+    stdenvNoCC
+    libgcc
+    cmake
+    freetype
+    heroic
+];
 
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+    protontricks.enable = true;
   };
 
   system.stateVersion = "25.05"; # Dont touch
