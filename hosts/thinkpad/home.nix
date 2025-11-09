@@ -14,8 +14,8 @@
   home.packages = with pkgs; [
     obsidian
     discord
-    #mpv # Video utility
-    spotify
+    mpv # Video utility
+    #spotify
     gimp
     qimgv # Image viewer
     pavucontrol
@@ -35,8 +35,10 @@
 
   programs.git = {
     enable = true;
-    userName = "Mika Wilpert";
-    userEmail = "mika.wilpert@gmail.com";
+    settings = {
+      user.name = "Mika Wilpert";
+      user.email = "mika.wilpert@gmail.com";
+    };
   };
 
   # home.sessionVariables = {
