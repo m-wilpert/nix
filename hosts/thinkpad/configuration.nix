@@ -78,7 +78,7 @@
   users.users.mika = {
     isNormalUser = true;
     description = "Mika";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -113,7 +113,7 @@
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" "modesetting" ];
-  hardware.nvidia.open = true;  # see the note above
+  hardware.nvidia.open = false;  # see the note above
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -147,13 +147,13 @@
   };
   
   # Suspend-then-hibernate config
-  services.logind.settings.Login = {
-    HandlePowerKey="suspend-then-hibernate";
-    HandlePowerKeyLongPress="poweroff";
-    HandleLidSwitch="suspend-then-hibernate";
-    HandleLidSwitchExternalPower="suspend-then-hibernate";
-    HandleLidSwitchDocked="ignore";
-  };
+  #services.logind.settings.Login = {
+  #  HandlePowerKey="suspend-then-hibernate";
+  #  HandlePowerKeyLongPress="poweroff";
+  #  HandleLidSwitch="suspend-then-hibernate";
+  #  HandleLidSwitchExternalPower="suspend-then-hibernate";
+  #  HandleLidSwitchDocked="ignore";
+  #};
 
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=2h
@@ -198,11 +198,18 @@
     openFirewall = true;
   };
 
+  virtualisation.docker.enable = true;
+
   environment.systemPackages = with pkgs; [
     alacritty
     alacritty-theme
     git
     neovim
+    winboat
+    kicad
+    baobab #disk usage analyzer
+    wl-clipboard
+    distrobox
   ];
 
   programs.steam = {

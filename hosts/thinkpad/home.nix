@@ -24,7 +24,7 @@
     #blueman
     freecad
     stirling-pdf # PDF editor
-    mullvad-vpn
+    #mullvad-vpn
     qbittorrent
     signal-desktop
     vscode
@@ -39,6 +39,10 @@
       user.name = "Mika Wilpert";
       user.email = "mika.wilpert@gmail.com";
     };
+  };
+
+  programs.anki = {
+    enable = true;
   };
 
   # home.sessionVariables = {
