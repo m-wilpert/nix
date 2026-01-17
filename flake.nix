@@ -17,9 +17,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixgl.url = "github:guibou/nixGL";
+
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, nixgl, ... }@inputs: 
+  let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs { 
+      inherit system;
+    };
+  in {
+
     nixosConfigurations = {
       thinkpad = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
@@ -35,6 +44,13 @@
           inputs.home-manager.nixosModules.default
         ];
       };
-    }; 
+    };
+
+    devShells.${system}.default = pkgs.mkShell {
+    packages = [
+      pkgs.python3
+      nixgl.packages.${system}.nixGLDefault
+      ];
+    };
   };
 }

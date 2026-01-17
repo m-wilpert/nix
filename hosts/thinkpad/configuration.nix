@@ -78,7 +78,7 @@
   users.users.mika = {
     isNormalUser = true;
     description = "Mika";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -86,13 +86,14 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
+  services.libinput.enable = true;
   # Enable the GNOME Desktop Environment.
-  #services.displayManager.gdm.enable = true;
-  #services.desktopManager.gnome.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
-  services.desktopManager.cosmic.enable = true;
-  services.desktopManager.cosmic.xwayland.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+  # Enable the Cosmic Desktop Environment.
+  # services.displayManager.cosmic-greeter.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+  # services.desktopManager.cosmic.xwayland.enable = true;
 
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
@@ -113,7 +114,7 @@
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" "modesetting" ];
-  hardware.nvidia.open = true;  # see the note above
+  hardware.nvidia.open = false;  # see the note above
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -147,13 +148,13 @@
   };
   
   # Suspend-then-hibernate config
-  services.logind.settings.Login = {
-    HandlePowerKey="suspend-then-hibernate";
-    HandlePowerKeyLongPress="poweroff";
-    HandleLidSwitch="suspend-then-hibernate";
-    HandleLidSwitchExternalPower="suspend-then-hibernate";
-    HandleLidSwitchDocked="ignore";
-  };
+  #services.logind.settings.Login = {
+  #  HandlePowerKey="suspend-then-hibernate";
+  #  HandlePowerKeyLongPress="poweroff";
+  #  HandleLidSwitch="suspend-then-hibernate";
+  #  HandleLidSwitchExternalPower="suspend-then-hibernate";
+  #  HandleLidSwitchDocked="ignore";
+  #};
 
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=2h
@@ -180,11 +181,18 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-
-  # to use cosmic store to manage flatpaks uncomment the following, rebuild and then run "flatpak remote-add --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo"
-  # services.flatpak.enable = true;
   
-  services.mullvad-vpn.enable = true;
+  services.mullvad-vpn = {
+    enable = true;
+    package = pkgs.mullvad-vpn;
+  };
+
+  services.flatpak.enable = true;
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 
   programs.firefox = {
     enable = true;
@@ -196,11 +204,18 @@
     openFirewall = true;
   };
 
+  virtualisation.docker.enable = true;
+
   environment.systemPackages = with pkgs; [
     alacritty
     alacritty-theme
     git
     neovim
+    #winboat
+    #kicad
+    #baobab #disk usage analyzer
+    wl-clipboard
+    distrobox
   ];
 
   programs.steam = {
