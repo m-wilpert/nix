@@ -24,7 +24,9 @@
   outputs = { self, nixpkgs, nixgl, ... }@inputs: 
   let
     system = "x86_64-linux";
-    pkgs = import nixpkgs { inherit system; };
+    pkgs = import nixpkgs { 
+      inherit system;
+    };
   in {
 
     nixosConfigurations = {
@@ -41,7 +43,7 @@
     packages = [
       pkgs.python3
       nixgl.packages.${system}.nixGLDefault
-    ];
-  };
+      ];
+    };
   };
 }

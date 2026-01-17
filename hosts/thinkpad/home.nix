@@ -13,25 +13,39 @@
 
   home.packages = with pkgs; [
     obsidian
-    discord
+    #discord
     mpv # Video utility
     #spotify
-    gimp
-    qimgv # Image viewer
+    #gimp
+    #qimgv # Image viewer
     pavucontrol
     libreoffice
-    bitwarden-desktop
+    #bitwarden-desktop
     #blueman
-    freecad
-    stirling-pdf # PDF editor
+    #freecad
+    #stirling-pdf # PDF editor
     #mullvad-vpn
-    qbittorrent
-    signal-desktop
+    #qbittorrent
+    #signal-desktop
     vscode
-    prismlauncher
+    #prismlauncher
     android-tools
     heimdall-gui
+    #### GNOME ####
+    gnome-tweaks
+    gnomeExtensions.top-bar-organizer
+    gnomeExtensions.hibernate-status-button
   ];
+
+  dconf.settings = {
+    "org/gnome/shell" = {
+      disable-user-extensions = false;
+      enabled-extensions = [
+        "top-bar-organizer@julian.gse.jsts.xyz"
+        "hibernate-status@dromi"
+      ];
+    };
+  };
 
   programs.git = {
     enable = true;
