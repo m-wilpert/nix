@@ -88,19 +88,19 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  #services.displayManager.gdm.enable = true;
-  #services.desktopManager.gnome.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
-  services.desktopManager.cosmic.enable = true;
-  services.desktopManager.cosmic.xwayland.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+  # services.displayManager.cosmic-greeter.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+  # services.desktopManager.cosmic.xwayland.enable = true;
 
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "mika";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  #systemd.services."getty@tty1".enable = false;
-  #systemd.services."autovt@tty1".enable = false;
+  # systemd.services."getty@tty1".enable = false;
+  # systemd.services."autovt@tty1".enable = false;
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -109,11 +109,11 @@
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "de";
-    # variant = "us";
+    variant = "us";
   };
 
   # Configure console keymap
-  console.keyMap = "de";
+  console.keyMap = "us";
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -170,9 +170,25 @@
   nixpkgs.config.allowUnfree = true;
 
   # to use cosmic store to manage flatpaks uncomment the following, rebuild and then run "flatpak remote-add --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo"
-  # services.flatpak.enable = true;
-  
-  services.mullvad-vpn.enable = true;
+  services.mullvad-vpn = {
+    enable = true;
+    package = pkgs.mullvad-vpn;
+  };
+
+  services.flatpak.enable = true;
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
+    
+  };
 
   programs.firefox = {
     enable = true;
@@ -195,6 +211,9 @@
     cmake
     freetype
     heroic
+    p7zip
+    ryubing
+#    lutris
 ];
 
   programs.steam = {
