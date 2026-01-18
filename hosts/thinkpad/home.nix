@@ -35,6 +35,7 @@
     gnome-tweaks
     gnomeExtensions.top-bar-organizer
     gnomeExtensions.hibernate-status-button
+    gnomeExtensions.appindicator
   ];
 
   dconf.settings = {
@@ -57,6 +58,15 @@
 
   programs.anki = {
     enable = true;
+  };
+
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      ll = "ls -lah";
+      gs = "git status";
+      rebuild = "sudo nixos-rebuild switch --flake ~/nix#thinkpad";
+    };
   };
 
   # home.sessionVariables = {
