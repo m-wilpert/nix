@@ -86,7 +86,17 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.libinput.enable = true;
+  services.libinput = {
+    enable = true;
+    # mouse = {
+    #   leftHanded = false; # global default
+    # };
+    # # Swap mouse buttons on usb mouse.
+    # devices."logitech-wireless-mouse" = {
+    #   name = "Logitech Wireless Mouse";
+    #   leftHanded = true;
+    # };
+  };
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
@@ -125,6 +135,12 @@
   # Configure console keymap
   console.keyMap = "us";
 
+  services.udev.extraHwdb = ''
+    evdev:input:b0003v046Dp4054*
+      KEYBOARD_KEY_90001=btn_right
+      KEYBOARD_KEY_90002=btn_left
+  '';
+
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
@@ -146,7 +162,7 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-  
+
   # Suspend-then-hibernate config
   #services.logind.settings.Login = {
   #  HandlePowerKey="suspend-then-hibernate";
