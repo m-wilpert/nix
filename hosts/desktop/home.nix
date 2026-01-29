@@ -65,6 +65,15 @@
     enable = true;
   };
 
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      ll = "ls -lah";
+      gs = "git status";
+      rebuild = "sudo nixos-rebuild switch --flake ~/nix#desktop";
+    };
+  };
+
   # home.sessionVariables = {
   #   TERMINAL = "alacritty";
   #   EDITOR = "nvim";
