@@ -66,6 +66,7 @@
       ll = "ls -lah";
       gs = "git status";
       rebuild = "sudo nixos-rebuild switch --flake ~/nix#thinkpad";
+      update = "sudo nix flake update --flake ~/nix && sudo nixos-rebuild switch --flake ~/nix#thinkpad";
     };
   };
 
