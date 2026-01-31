@@ -36,6 +36,7 @@
     gnomeExtensions.top-bar-organizer
     gnomeExtensions.hibernate-status-button
     gnomeExtensions.appindicator
+    gnomeExtensions.dash-in-panel
   ];
 
   dconf.settings = {
