@@ -27,6 +27,7 @@
     #mullvad-vpn
     #qbittorrent
     signal-desktop
+    zapzap
     vscode
     #prismlauncher
     android-tools
@@ -54,11 +55,11 @@
     };
   };
 
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
-    style = "adwaita-dark";
-  };
+  # qt = {
+  #   enable = true;
+  #   platformTheme = "adwaita";
+  #   style.name = "adwaita-dark";
+  # };
 
   programs.git = {
     enable = true;
