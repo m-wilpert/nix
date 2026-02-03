@@ -26,7 +26,8 @@
     #stirling-pdf # PDF editor
     #mullvad-vpn
     #qbittorrent
-    #signal-desktop
+    signal-desktop
+    zapzap
     vscode
     prismlauncher
     android-tools
@@ -34,20 +35,31 @@
     ### GNOME ###
     gnome-tweaks
     gnomeExtensions.top-bar-organizer
-    gnomeExtensions.hibernate-status-button
+    #gnomeExtensions.hibernate-status-button # abandoned
     gnomeExtensions.appindicator
     gnomeExtensions.dash-in-panel
   ];
 
-  dconf.settings = {
-    "org/gnome/shell" = {
-      disable-user-extensions = false;
-      enabled-extensions = [
-        "top-bar-organizer@julian.gse.jsts.xyz"
-        "hibernate-status@dromi"
-      ];
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/shell" = {
+        disable-user-extensions = false;
+        enabled-extensions = with pkgs; [
+          gnomeExtensions.top-bar-organizer.extensionUuid
+          #gnomeExtensions.hibernate-status-button # abandoned
+          gnomeExtensions.appindicator.extensionUuid
+          gnomeExtensions.dash-in-panel.extensionUuid
+        ];
+      };
     };
   };
+
+  # qt = {
+  #   enable = true;
+  #   platformTheme = "adwaita";
+  #   style.name = "adwaita-dark";
+  # };
 
   programs.git = {
     enable = true;
@@ -70,8 +82,8 @@
     shellAliases = {
       ll = "ls -lah";
       gs = "git status";
-      rebuild = "sudo nixos-rebuild switch --flake ~/nix#desktop";
-      update = "sudo nix flake update --flake ~/nix && sudo nixos-rebuild switch --flake ~/nix#desktop";
+      rebuild = "sudo nixos-rebuild switch --flake ~/nix#desktop && sudo nixos-rebuild test --flake ~/nix#desktop";
+      update = "sudo nix flake update --flake ~/nix && sudo nixos-rebuild switch --flake ~/nix#desktop && sudo nixos-rebuild test --flake ~/nix#desktop";
     };
   };
 
