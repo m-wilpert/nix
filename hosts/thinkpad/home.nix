@@ -20,6 +20,7 @@
     #qimgv # Image viewer
     pavucontrol
     libreoffice
+    octaveFull
     #bitwarden-desktop
     #blueman
     #freecad
