@@ -109,11 +109,6 @@
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "mika";
 
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  #systemd.services."getty@tty1".enable = false;
-  #systemd.services."autovt@tty1".enable = false;
-
-
   hardware.nvidia.prime = {
     offload.enable = true;
     offload.enableOffloadCmd = true;
@@ -223,8 +218,6 @@
   virtualisation.docker.enable = true;
 
   environment.systemPackages = with pkgs; [
-    alacritty
-    alacritty-theme
     git
     neovim
     #winboat
@@ -232,6 +225,9 @@
     #baobab #disk usage analyzer
     wl-clipboard
     distrobox
+    adwaita-icon-theme
+    gnome-themes-extra
+    hicolor-icon-theme
   ];
 
   programs.steam = {
