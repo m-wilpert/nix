@@ -49,6 +49,11 @@
   nix.optimise.automatic = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  nix.settings = {
+    # Increase download buffer size (default is 64MB)
+    download-buffer-size = 256000000; #256MB
+  };
+
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -192,6 +197,8 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
   
   services.mullvad-vpn = {
     enable = true;
