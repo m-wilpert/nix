@@ -20,7 +20,9 @@
     #qimgv # Image viewer
     pavucontrol
     libreoffice
-    octaveFull
+    octaveFull #matlab alternative
+    scilab-bin #matlab + simulink alternative
+    julia_111 # programming language for scientific computing
     #bitwarden-desktop
     #blueman
     #freecad
