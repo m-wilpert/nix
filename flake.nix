@@ -1,56 +1,23 @@
 {
-  description = "Mikado's NixOS system config flake";
+  description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    home-manager = {
-     url = "github:nix-community/home-manager";
-     inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Bootloader theme
-    nixos-grub-themes.url = "github:jeslie0/nixos-grub-themes";
-
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixgl.url = "github:guibou/nixGL";
-
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    copyparty.url = "github:9001/copyparty";
   };
 
-  outputs = { self, nixpkgs, nixgl, ... }@inputs: 
-  let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs { 
-      inherit system;
-    };
-  in {
-
-    nixosConfigurations = {
-      thinkpad = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/thinkpad/configuration.nix
-          inputs.home-manager.nixosModules.default
-        ];
-      };
-      desktop = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/desktop/configuration.nix
-          inputs.home-manager.nixosModules.default
-        ];
-      };
-    };
-
-    devShells.${system}.default = pkgs.mkShell {
-    packages = [
-      pkgs.python3
-      nixgl.packages.${system}.nixGLDefault
+  outputs = { self, nixpkgs, copyparty }: {
+    
+    nixosConfigurations.homelab = nixpkgs.lib.nixosSystem {
+      modules = [
+        ./configuration.nix
+        copyparty.nixosModules.default
+        ({ pkgs, ... }: {
+          nixpkgs.overlays = [ copyparty.overlays.default ];
+          environment.systemPackages = [ pkgs.copyparty ];
+        })
       ];
-    };
+    };    
+
   };
 }
