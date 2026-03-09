@@ -164,6 +164,7 @@
   };
 
   # Suspend-then-hibernate config
+  ### Deprecated
   #services.logind.settings.Login = {
   #  HandlePowerKey="suspend-then-hibernate";
   #  HandlePowerKeyLongPress="poweroff";
@@ -172,10 +173,11 @@
   #  HandleLidSwitchDocked="ignore";
   #};
 
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=2h
-  '';
+  # systemd.sleep.extraConfig = ''
+  #   HibernateDelaySec=2h
+  # '';
 
+  # new option: systemd.sleep.settings.Sleep
 
   ###############################################################
   #####################  SOFTWARE SETTINGS  #####################
