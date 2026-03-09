@@ -237,7 +237,10 @@
     adwaita-icon-theme
     gnome-themes-extra
     hicolor-icon-theme
+    uv
   ];
+
+  programs.nix-ld.enable = true; # for common uv bug
 
   programs.steam = {
     enable = true;
