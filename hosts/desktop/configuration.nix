@@ -49,6 +49,11 @@
   nix.optimise.automatic = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  nix.settings = {
+    # Increase download buffer size (default is 64MB)
+    download-buffer-size = 256000000; #256MB
+  };
+
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -138,15 +143,16 @@
   };
   
   # Suspend-then-hibernate config
-  services.logind.settings.Login = {
-    HandlePowerKey="suspend-then-hibernate";
-    HandlePowerKeyLongPress="poweroff";
-  };
+  # services.logind.settings.Login = {
+  #   HandlePowerKey="suspend-then-hibernate";
+  #   HandlePowerKeyLongPress="poweroff";
+  # };
 
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=2h
-  '';
+  # systemd.sleep.extraConfig = ''
+  #   HibernateDelaySec=2h
+  # '';
 
+  #systemd.sleep.settings.Sleep
 
   ###############################################################
   #####################  SOFTWARE SETTINGS  #####################
