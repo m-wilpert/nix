@@ -18,33 +18,29 @@
   # boot.loader.efi.canTouchEfiVariables = true;
   boot.loader = {
     systemd-boot.enable = false;
-    grub.useOSProber = true;
 
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
+      #efiSysMountPoint = "/boot/efi";
     };
 
     grub = {
       enable = true;
+      device = "nodev"; # "nodev" is used for UEFI
       efiSupport = true;
-      device = "nodev";
-      theme = inputs.nixos-grub-themes.packages.${pkgs.system}.nixos;
+      useOSProber = true;
+      #theme = inputs.nixos-grub-themes.packages.${pkgs.system}.nixos;
     };
   };
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  #boot.initrd.luks.devices."luks-d77f25e7-47d7-4a33-a45c-f8fe835a0029".device = "/dev/disk/by-uuid/d77f25e7-47d7-4a33-a45c-f8fe835a0029";
-  boot.initrd.systemd.enable = true;
-
-
-  boot.plymouth = {
-    enable = true;
-    # themePackages = [ pkgs.plymouth-themes ];
-    theme = "breeze";
-  };
+  #boot.plymouth = {
+  #  enable = true;
+  #  # themePackages = [ pkgs.plymouth-themes ];
+  #  theme = "breeze";
+  #};
 
   nix.optimise.automatic = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -91,21 +87,12 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
-  # services.displayManager.cosmic-greeter.enable = true;
-  # services.desktopManager.cosmic.enable = true;
-  # services.desktopManager.cosmic.xwayland.enable = true;
-
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "mika";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  # systemd.services."getty@tty1".enable = false;
-  # systemd.services."autovt@tty1".enable = false;
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -175,7 +162,8 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # to use cosmic store to manage flatpaks uncomment the following, rebuild and then run "flatpak remote-add --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo"
+  services.openssh.enable = true;
+  
   services.mullvad-vpn = {
     enable = true;
     package = pkgs.mullvad-vpn;
@@ -188,17 +176,16 @@
     binfmt = true;
   };
 
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    capSysAdmin = true;
-    openFirewall = true;
-    
-  };
+  #services.sunshine = {
+  #  enable = true;
+  #  autoStart = true;
+  #  capSysAdmin = true;
+  #  openFirewall = true;
+  #  
+  #};
 
   programs.firefox = {
     enable = true;
-    preferences = {"widget.gtk.libadwaita-colors.enabled" = false;};
   };
 
   programs.localsend = {
@@ -207,19 +194,10 @@
   };
 
   environment.systemPackages = with pkgs; [
-    alacritty
-    alacritty-theme
     git
     neovim
-    bottles
-    stdenvNoCC
-    libgcc
-    cmake
-    freetype
-    heroic
     p7zip
     ryubing
-#    lutris
 ];
 
   programs.steam = {
@@ -230,6 +208,6 @@
     protontricks.enable = true;
   };
 
-  system.stateVersion = "25.05"; # Dont touch
+  system.stateVersion = "25.11"; # Dont touch
 
 }
