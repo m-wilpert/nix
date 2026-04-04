@@ -96,7 +96,20 @@
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = false;  # see the note above
+  hardware.nvidia = {
+    open = false;  # see the note above
+    # modesetting.enable = true;
+    # powerManagement.enable = true;
+    # powerManagement.finegrained = false;
+    # nvidiaSettings = true;
+    # package = config.boot.kernelPackages.nvidiaPackages.beta;
+  };
+
+  # systemd.services."systemd-suspend" = {
+  #   serviceConfig = {
+  #     Environment=''"SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=false"'';
+  #   };
+  # };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -176,6 +189,8 @@
     binfmt = true;
   };
 
+  programs.nix-ld.enable = true;
+
   #services.sunshine = {
   #  enable = true;
   #  autoStart = true;
@@ -198,6 +213,8 @@
     neovim
     p7zip
     ryubing
+    direnv
+    uv
 ];
 
   programs.steam = {
