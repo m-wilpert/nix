@@ -8,24 +8,24 @@
   home = { 
     username = "mika";
     homeDirectory = "/home/mika";
-    stateVersion = "25.05"; # Do not change
+    stateVersion = "25.11"; # Do not change
   };
 
   home.packages = with pkgs; [
     obsidian
-    #discord
-    mpv # Video utility
-    #spotify
-    #gimp
-    qimgv # Image viewer
+    discord
+    #mpv # Video utility
+    spotify
+    gimp
+    #qimgv # Image viewer
     pavucontrol
     libreoffice
     #bitwarden-desktop
     #blueman
-    #freecad
+    freecad
     #stirling-pdf # PDF editor
     #mullvad-vpn
-    #qbittorrent
+    qbittorrent
     signal-desktop
     zapzap
     vscode
@@ -63,10 +63,10 @@
 
   programs.git = {
     enable = true;
-    settings = {
-      user.name = "Mika Wilpert";
-      user.email = "mika.wilpert@gmail.com";
-    };
+    #settings = {
+    #  user.name = "Mika Wilpert";
+    #  user.email = "mika.wilpert@gmail.com";
+    #};
   };
 
   programs.anki = {
@@ -82,8 +82,8 @@
     shellAliases = {
       ll = "ls -lah";
       gs = "git status";
-      rebuild = "sudo nixos-rebuild switch --flake ~/nix#desktop && sudo nixos-rebuild test --flake ~/nix#desktop";
-      update = "sudo nix flake update --flake ~/nix && sudo nixos-rebuild switch --flake ~/nix#desktop && sudo nixos-rebuild test --flake ~/nix#desktop";
+      rebuild = "sudo nixos-rebuild switch --flake ~/nix#desktop";
+      update = "sudo nix flake update --flake ~/nix && sudo nixos-rebuild switch --flake ~/nix#desktop";
     };
   };
 
