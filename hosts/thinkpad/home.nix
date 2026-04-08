@@ -35,6 +35,7 @@
     #prismlauncher
     android-tools
     heimdall-gui
+    keepassxc
     #### GNOME ####
     gnome-tweaks
     gnomeExtensions.top-bar-organizer
