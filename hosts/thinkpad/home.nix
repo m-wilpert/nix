@@ -36,6 +36,7 @@
     android-tools
     heimdall-gui
     keepassxc
+    btop
     #### GNOME ####
     gnome-tweaks
     gnomeExtensions.top-bar-organizer
@@ -81,7 +82,7 @@
     enable = true;
     shellAliases = {
       ll = "ls -lah";
-      gs = "git status";
+      gs = "git fetch && git status";
       rebuild = "sudo nixos-rebuild switch --flake ~/nix#thinkpad";
       update = "sudo nix flake update --flake ~/nix && sudo nixos-rebuild switch --flake ~/nix#thinkpad";
     };

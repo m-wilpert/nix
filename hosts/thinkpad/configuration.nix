@@ -64,6 +64,15 @@
   
   networking.networkmanager.enable = true;
 
+  networking.firewall = {
+    enable = true;
+    # ROS 2 Discovery ports
+    allowedUDPPortRanges = [
+      { from = 7400; to = 7500; }
+      { from = 32768; to = 61000; }
+    ];
+  };
+
   time.timeZone = "Europe/Berlin";
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -237,10 +246,35 @@
     adwaita-icon-theme
     gnome-themes-extra
     hicolor-icon-theme
-    uv
+    # uv
+    # python314
+    direnv
   ];
 
-  programs.nix-ld.enable = true; # for common uv bug
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      # General requirements
+      stdenv.cc.cc.lib
+      zlib
+      glib
+      
+      # Qt/PySide6 specific
+      fontconfig
+      freetype
+      libGL
+      libxkbcommon
+      dbus
+      
+      # X11 libraries (often needed for the 'xcb' plugin)
+      libx11
+      libxcb
+      libxcursor
+      libxrandr
+      libxi
+      xcb-util-cursor # Crucial for modern PySide6/Qt6
+    ];
+  };
 
   programs.steam = {
     enable = true;
