@@ -32,6 +32,12 @@
     prismlauncher
     android-tools
     heimdall-gui
+    (heroic.override {
+      extraPkgs = pkgs': with pkgs'; [
+        gamescope
+        gamemode
+      ];
+    })
     ### GNOME ###
     gnome-tweaks
     gnomeExtensions.top-bar-organizer

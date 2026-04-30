@@ -95,6 +95,7 @@
   services.displayManager.autoLogin.user = "mika";
 
   hardware.graphics.enable = true;
+  hardware.opengl.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     open = false;  # see the note above
@@ -215,7 +216,10 @@
     ryubing
     direnv
     uv
-];
+  ];
+
+  programs.gamescope.enable = true;
+  programs.gamemode.enable = true;
 
   programs.steam = {
     enable = true;
@@ -223,6 +227,9 @@
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
     protontricks.enable = true;
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
   };
 
   system.stateVersion = "25.11"; # Dont touch
