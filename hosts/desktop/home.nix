@@ -80,7 +80,7 @@
   };
 
   programs.lutris = {
-    enable = true;
+    enable = false;
   };
 
   programs.bash = {
