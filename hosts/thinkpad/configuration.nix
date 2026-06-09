@@ -35,6 +35,7 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = [ "nvidia-uvm" ];
 
   boot.initrd.luks.devices."luks-d77f25e7-47d7-4a33-a45c-f8fe835a0029".device = "/dev/disk/by-uuid/d77f25e7-47d7-4a33-a45c-f8fe835a0029";
   boot.initrd.systemd.enable = true;
@@ -92,7 +93,7 @@
   users.users.mika = {
     isNormalUser = true;
     description = "Mika";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout"];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -123,17 +124,24 @@
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "mika";
 
-  hardware.nvidia.prime = {
-    offload.enable = true;
-    offload.enableOffloadCmd = true;
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
-    #amdgpuBusId = "PCI:54:0:0"; # If you have an AMD iGPU
+  hardware.nvidia = {
+    open = false;
+    modesetting.enable = true;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+
+    prime = {
+      offload.enable = false;
+      offload.enableOffloadCmd = false;
+      sync.enable = true;
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
   };
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" "modesetting" ];
-  hardware.nvidia.open = false;  # see the note above
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -234,10 +242,12 @@
   };
 
   virtualisation.docker.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
 
   environment.systemPackages = with pkgs; [
     git
     neovim
+    pciutils
     #winboat
     #kicad
     #baobab #disk usage analyzer
