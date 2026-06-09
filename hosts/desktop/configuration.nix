@@ -79,7 +79,7 @@
   users.users.mika = {
     isNormalUser = true;
     description = "Mika";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -97,10 +97,7 @@
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
-    open = false;  # see the note above
-    # modesetting.enable = true;
-    # powerManagement.enable = true;
-    # powerManagement.finegrained = false;
+    open = false;
     # nvidiaSettings = true;
     # package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
@@ -176,6 +173,9 @@
   nixpkgs.config.allowUnfree = true;
 
   services.openssh.enable = true;
+
+  virtualisation.docker.enable = true;
+  hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion = true;
   
   services.mullvad-vpn = {
     enable = true;
