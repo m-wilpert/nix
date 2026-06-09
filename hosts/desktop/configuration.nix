@@ -59,6 +59,8 @@
   networking.hostName = "NixDesktop";
   
   networking.networkmanager.enable = true;
+  
+  networking.firewall.allowedTCPPorts = [ 11434 ];
 
   time.timeZone = "Europe/Berlin";
 
@@ -206,6 +208,12 @@
   programs.localsend = {
     enable = true;
     openFirewall = true;
+  };
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+    host = "0.0.0.0";      # Listens to all interfaces, including the Docker bridge
   };
 
   environment.systemPackages = with pkgs; [
