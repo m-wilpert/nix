@@ -175,7 +175,7 @@
   services.openssh.enable = true;
 
   virtualisation.docker.enable = true;
-  hardware.nvidia-container-toolkit.suppressNvidiaDriverAssertion = true;
+  hardware.nvidia-container-toolkit.enable = true;
   
   services.mullvad-vpn = {
     enable = true;
