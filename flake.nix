@@ -19,6 +19,10 @@
 
     nixgl.url = "github:guibou/nixGL";
 
+    nix-citizen.url = "github:LovingMelody/nix-citizen";
+    nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
+
   };
 
   outputs = { self, nixpkgs, nixgl, ... }@inputs: 
@@ -52,5 +56,15 @@
       nixgl.packages.${system}.nixGLDefault
       ];
     };
+
+    homeConfigurations.desktop.etc = { config, pkgs, ... }:
+    let
+      environment = {
+        packages.x86_64-linux = with pkgs; [
+          (nix-citizen.packages.${system}.rsi-launcher)
+        ];
+      };
+    in environment;
+    
   };
 }

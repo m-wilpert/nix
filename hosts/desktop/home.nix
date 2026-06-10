@@ -12,6 +12,7 @@
   };
 
   home.packages = with pkgs; [
+    inputs.nix-citizen.packages.${pkgs.system}.rsi-launcher
     obsidian
     discord
     #mpv # Video utility
