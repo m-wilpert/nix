@@ -59,6 +59,8 @@
   networking.hostName = "NixDesktop";
   
   networking.networkmanager.enable = true;
+  
+  networking.firewall.allowedTCPPorts = [ 11434 ];
 
   time.timeZone = "Europe/Berlin";
 
@@ -79,7 +81,7 @@
   users.users.mika = {
     isNormalUser = true;
     description = "Mika";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -95,13 +97,9 @@
   services.displayManager.autoLogin.user = "mika";
 
   hardware.graphics.enable = true;
-  hardware.opengl.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
-    open = false;  # see the note above
-    # modesetting.enable = true;
-    # powerManagement.enable = true;
-    # powerManagement.finegrained = false;
+    open = false;
     # nvidiaSettings = true;
     # package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
@@ -177,6 +175,9 @@
   nixpkgs.config.allowUnfree = true;
 
   services.openssh.enable = true;
+
+  virtualisation.docker.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
   
   services.mullvad-vpn = {
     enable = true;
@@ -207,6 +208,12 @@
   programs.localsend = {
     enable = true;
     openFirewall = true;
+  };
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+    host = "0.0.0.0";      # Listens to all interfaces, including the Docker bridge
   };
 
   environment.systemPackages = with pkgs; [

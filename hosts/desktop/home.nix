@@ -15,7 +15,7 @@
     obsidian
     discord
     #mpv # Video utility
-    spotify
+    #spotify
     gimp
     #qimgv # Image viewer
     pavucontrol
