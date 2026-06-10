@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports =
@@ -142,6 +142,26 @@
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" "modesetting" ];
+
+  specialisation = {
+    battery-saver.configuration = {
+      system.nixos.tags = [ "battery-saver" ];
+      
+      # 1. Kill the battery-heavy Sync Mode
+      hardware.nvidia.prime.sync.enable = lib.mkForce false;
+      
+      # 2. Force the graphics server to use integrated graphics
+      services.xserver.videoDrivers = lib.mkForce [ "modesetting" ];
+      
+      # 3. Prevent the kernel from spinning up the hardware modules entirely
+      boot.extraModprobeConfig = ''
+        blacklist nvidia
+        blacklist nvidia_drm
+        blacklist nvidia_modeset
+        blacklist nouveau
+      '';
+    };
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
