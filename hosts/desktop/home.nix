@@ -14,6 +14,7 @@
   home.packages = with pkgs; [
     inputs.nix-citizen.packages.${pkgs.system}.rsi-launcher
     obsidian
+    btop
     discord
     #mpv # Video utility
     #spotify
